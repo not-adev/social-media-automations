@@ -20,15 +20,14 @@ const Navbar = () => {
             {/* Right: Auth Buttons */}
             <div className="flex items-center justify-center gap-4">
                 <SignedOut>
-                    <SignInButton>
+                    <SignInButton redirectUrl="/dashboard/home">
                         <button className="border  text-center border-[#52514e] px-4  py-2 rounded-full bg-[#52514e]   hover:bg-black hover:text-white transition"> Login</button>
                     </SignInButton>
-                    <SignUpButton>
-         
+                    <SignUpButton redirectUrl="/dashboard/home">
                         <button  className="px-8 py-2 text-center rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200" >Sign up</button>
                     </SignUpButton>
                 </SignedOut>
-                <SignedIn>
+                <SignedIn >
                     <UserButton/>
                 </SignedIn>
 
