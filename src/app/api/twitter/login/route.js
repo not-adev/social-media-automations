@@ -12,7 +12,7 @@ export async function GET(request) {
         new URLSearchParams({
             response_type: 'code',
             client_id: process.env.TWITTER_CLIENT_ID,
-            redirect_uri: 'http://localhost:3000/api/twiter/callback',
+            redirect_uri: 'http://localhost:3000/api/twitter/callback',
             scope: 'tweet.read tweet.write users.read offline.access',
             state: 'secure_random_state',
             code_challenge,
@@ -20,10 +20,14 @@ export async function GET(request) {
         }).toString()
     );
 
+
     response.cookies.set('code_verifier', codeVerifer, {
         path: '/',
         httpOnly: true,
     });
+
+    
+    
     
 
     return response;

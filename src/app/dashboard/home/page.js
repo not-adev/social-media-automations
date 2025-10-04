@@ -11,9 +11,11 @@ import AddAccount from '@/app/components/AddAccount'
 
 const Dashbored_Home = () => {
   const fetcher = useSecureFetcher()
-  // const { data, error, isLoading } = useSWR('/api/SyncUser', fetcher);
   const [AddAccountVisible, setAddAccountVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+   const [SocialAccountdata, setSocialAccountdata] = useState([])
+   const [loadingforchild, setLoadingforchild] = useState(true)
+     
   useEffect(() => {
     async function addToken() {
       try {
@@ -21,6 +23,10 @@ const Dashbored_Home = () => {
         console.log("calling api ")
         const res = await axios.get('/api/SyncUser')
         console.log(res.data)
+        const res2 = await axios.get('/api/GetSocialAccounts')
+        console.log(res2.data.data)
+
+        setSocialAccountdata(res2.data.data)
 
 
       } catch (error) {
@@ -29,6 +35,7 @@ const Dashbored_Home = () => {
       finally {
         console.log("api ed ")
         setIsLoading(false)
+        setLoadingforchild(false)
       }
     }
     addToken()
@@ -36,7 +43,7 @@ const Dashbored_Home = () => {
 
   }, [])
 
-  function closeAddAccount(){
+  function closeAddAccount() {
     setAddAccountVisible(false)
   }
 
@@ -48,21 +55,21 @@ const Dashbored_Home = () => {
           Your Registered Social Media Accounts
         </h1>
         {
-          isLoading ? <SkeletonCard/> :
+          isLoading ? <SkeletonCard /> :
 
 
             <Suspense fallback={<SkeletonCard />}>
-              <SocialAccounts />
+              <SocialAccounts  data={SocialAccountdata} loading={loadingforchild} />
             </Suspense>
         }
-        <button onClick={()=> setAddAccountVisible(true)}  className="bg-blue-600 my-7 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow">
+        <button onClick={() => setAddAccountVisible(true)} className="bg-blue-600 my-7 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow">
           Add New Account
         </button>
-        { AddAccountVisible &&
-          <AddAccount close={closeAddAccount}/> 
+        {AddAccountVisible &&
+          <AddAccount close={closeAddAccount} />
         }
 
-        
+
 
       </div>
 

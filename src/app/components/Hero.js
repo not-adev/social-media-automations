@@ -3,14 +3,14 @@ import Link from 'next/link'
 const Hero = () => {
     return (
         <section className=" bg-[url('https://i.pinimg.com/1200x/35/0f/02/350f02458ebc0e43023ae5217bdc2a7d.jpg')] bg-cover bg-no-repeat text-white px-8 py-16">
-            <div className="max-w-xl text-left mb-20 dm:pl-12 ">
-                <h1 className="sm:text-6xl text-5xl font-bold my-4 sm:leading-18 ">
-                    Build Something Amazing
+            <div className="max-w-xl text-center m-auto  h-[400px]  dm:pl-12 ">
+                <h1 className="sm:text-7xl text-5xl font-bold  my-4  ">
+                    Automate your social media 
                 </h1>
                 <p className="text-md text-gray-300 mb-8">
                     Start your journey with powerful tools and beautiful design. Everything you need to launch fast and scale smart.
                 </p>
-                <div className="flex gap-4">
+                <div className="flex items-center  justify-center gap-4">
                     <Link href="#" className="border border-[#52514e] px-4  py-2 rounded-2xl bg-[#52514e]   hover:bg-black hover:text-white transition">Login</Link>
                     <Link href="#" className="px-8 py-2 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 text-white focus:ring-2 focus:ring-blue-400 hover:shadow-xl transition duration-200">Sign Up</Link>
 

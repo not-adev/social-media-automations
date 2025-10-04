@@ -3,9 +3,15 @@ import { currentUser, auth } from '@clerk/nextjs/server';
 import Usermodel from '@/modles/Usermodel';
 import connectDB from '@/helper/ConnectDB';
 import jwt from 'jsonwebtoken';
+import SocailMediaAccountModel from '@/modles/SocailMediaAccountModel';
 
 export async function GET(req) {
   await connectDB();
+  const tokenExist = req.cookies.get('token')?.value || '';
+  if (tokenExist) {
+    console.log("User already logged in");
+    return NextResponse.json({ message: 'User already logged in' }, { status: 200 });
+  }
   const { isAuthenticated } = await auth()
   if (!isAuthenticated) {
     return new NextResponse('Unauthorized', { status: 401 })

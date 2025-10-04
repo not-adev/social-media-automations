@@ -9,7 +9,7 @@ const AddAccount = ({ close }) => {
   const handleLogin = async () => {
     if (!selectedPlatform) return alert('Please select a platform');
     console.log(`Logging in to ${selectedPlatform}`);
-    window.location.href = '/api/twiter/login';
+    window.location.href = `/api/${selectedPlatform.toLowerCase()}/login`;
 
   };
 

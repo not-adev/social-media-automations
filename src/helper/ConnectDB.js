@@ -1,7 +1,7 @@
 "use server"
 import mongoose from "mongoose";
 export default async function connectDB() {
-    console.log("mogo db connection called ")
+   
     const state = mongoose.connection.readyState;
     if (state != 1) {
         await mongoose.connect(`${process.env.DATABASE_URL}`, {
@@ -14,6 +14,6 @@ export default async function connectDB() {
 
     }
     else {
-        console.log('already connected')
+      
     }
 }

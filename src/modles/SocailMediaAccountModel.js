@@ -3,12 +3,15 @@ import mongoose from 'mongoose';
 const socialMediaAccountSchema = new mongoose.Schema({
   platform: {
     type: String,
-    enum: ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Other'],
     required: true,
   },
   username: {
     type: String,
     required: true,
+    unique: true,
+  },
+  name : {
+    type: String,
   },
   profilePicture: {
     type: String, // URL or path
@@ -17,6 +20,7 @@ const socialMediaAccountSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+    index: true,
   },
 });
 

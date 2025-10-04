@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
+import Link from 'next/link';
 
 
 const Navbar = () => {
@@ -12,7 +13,7 @@ const Navbar = () => {
                 <div className="hidden md:flex gap-6">
                     <a href="#" className="hover:text-cyan-400 transition">Home</a>
                     <a href="#" className="hover:text-cyan-400 transition">About</a>
-                    <a href="#" className="hover:text-cyan-400 transition">Services</a>
+                    <Link href="/dashboard/home" className="hover:text-cyan-400 transition">Dashboard</Link>
                     <a href="#" className="hover:text-cyan-400 transition">Contact</a>
                 </div>
             </div>
