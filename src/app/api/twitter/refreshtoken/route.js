@@ -13,7 +13,7 @@ export async function GET(request) {
     const user = await Usermodel.findById(id);
     const oldrefresh_token = user?.refresh_token;
 
-
+    const credentials = Buffer.from(`${process.env.TWITTER_CLIENT_ID}:${process.env.TWITTER_CLIENT_SECRET}`).toString("base64");
     const Refreshresponse = await axios.post(
         'https://api.twitter.com/2/oauth2/token',
         new URLSearchParams({
@@ -24,6 +24,7 @@ export async function GET(request) {
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: `Basic ${credentials}`
             },
 
 

@@ -6,9 +6,9 @@ const TwitterGeneratePost = ({ }) => {
   const [form, setForm] = useState({
     datetime: '',
     content: '',
-    file: null,
     code: '',
   });
+  const [File, setFile] = useState(null)
   const [maxCount, setMaxCoutn] = useState(0)
   function handleerror() {
     if (maxCount > 280) {
@@ -17,15 +17,16 @@ const TwitterGeneratePost = ({ }) => {
     }
   }
   function handleChange(e) {
-    const { name, value, type, files } = e.target;
+    const { name, value, type } = e.target;
     if (name === 'content') {
       setMaxCoutn(value.length)
       console.log(maxCount);
     }
 
+
     setForm(prev => ({
       ...prev,
-      [name]: type === 'file' ? files[0] : value
+      [name]: value
     }));
   }
 
@@ -33,21 +34,41 @@ const TwitterGeneratePost = ({ }) => {
     navigator.clipboard.writeText(form.code);
   }
 
- async function handleSubmit(e) {
+
+
+
+  async function handleFileSave(file) {
+    const fileData = new FormData()
+    fileData.append('file', file);
+    const res = await axios.post("/api/upload", fileData, {
+      headers: {
+        // ✅ Let the browser set the proper boundary automatically
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(res.data.localPath)
+    return res.data.localPath
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (handleerror()) return;
-    console.log(form.file)
-    const response = await axios.post('/api/twitter/post', form ,{
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    }},
-)
-    console.log(response.data);
+    // if (handleerror()) return;
+    // let savedFile = null
+    // if (File) {
+    //   savedFile = await handleFileSave(File)
+
+    // }
+
+
+    // const response = await axios.post('/api/twitter/post', { formData: form, localPath: savedFile })
+    // console.log(response.data);
+    const res = await axios.get('/api/twitter/refreshtoken')
+    
   }
 
   return (
     <div className="w-full rounded-xl shadow-lg p-4 max-h-screen">
-      <form className="grid grid-cols-1 gap-2 text-white" onSubmit={handleSubmit}>
+      <form encType='multipart/form-data' className="grid grid-cols-1 gap-2 text-white" onSubmit={handleSubmit}>
         {/* Date-Time Input */}
         <div className='max-w-[300px]'>
           <label className="block text-gray-200 font-semibold mb-1 text-sm sm:text-base">Schedule Date & Time</label>
@@ -81,10 +102,9 @@ const TwitterGeneratePost = ({ }) => {
           <label className="block text-gray-200 font-semibold mb-1 text-sm sm:text-base">Image or Video</label>
           <input
             type="file"
-            required
             name="file"
             accept="image/*,video/*"
-            onChange={handleChange}
+            onChange={(e) => setFile(e.target.files[0])}
             className="w-full px-4 py-2 border-2 border-gray-700 bg-gray-900 text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700"
           />
         </div>

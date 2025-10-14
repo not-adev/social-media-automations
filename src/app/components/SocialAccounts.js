@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import SkeletonCard from '@/app/components/SkeltonCard'
 
 const SocialAccounts = ({ data = [],loading }) => {
-
     return (
         <>
             {

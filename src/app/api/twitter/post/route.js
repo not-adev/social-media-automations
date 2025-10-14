@@ -1,31 +1,61 @@
-import formidable from 'formidable';
-import fs from 'fs';
-import { NextResponse } from 'next/server';
+import axios from 'axios';
+import { UploadImageOnTwiter } from '@/helper/uploadImageOnTwitter';
+import { DeleteFileFromDisk } from '@/helper/deleteFileFromDisk';
+import { NextResponse, NextRequest } from 'next/server';
+import { getId } from '@/helper/getId';
+import Usermodel from '@/modles/Usermodel';
+import connectDB from '@/helper/ConnectDB';
+export async function POST(req) {
+  console.log('twiter post hit ')
+  await connectDB()
+  const token = req.cookies.get('token')?.value || '';
+  if (!token) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  const id = await getId(token);
+  const user = await Usermodel.findById(id);
+  const tokenCreatedAt = new Date(user.token_created_at).getTime();
+  let accessToken = user.access_token
+  const expery = user.expires_in
+  if (Date.now() > tokenCreatedAt + expery * 1000) {
+    const res = await axios.get(`${process.env.HOST}/api/twitter/refreshtoken`)
+    accessToken = res.data.user.access_token
+  }
+  const reqbody = await req.json()
+  const { formData, localPath } = reqbody
+  console.log(localPath, formData)
+  if (localPath) {
+    const media = await UploadImageOnTwiter(localPath, accessToken)
+    const tweetRes = await axios.post(
+      "https://api.twitter.com/2/tweets",
+      {
+        text: formData.content,
+        media: { media_ids: [media] },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    DeleteFileFromDisk(localPath)
+    return NextResponse.json({ message: 'upload Succefull', tweet: tweetRes.data })
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+  }
+  const tweetRes = await axios.post(
+    "https://api.twitter.com/2/tweets",
+    {
+      text: formData.content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  DeleteFileFromDisk(localPath)
+
+  return NextResponse.json({ message: 'Post scheduled successfully' });
 };
-
-export async function POST(req ,res) {
-  const form = formidable({ multiples: false });
-
-  form.parse(req, async (err, fields, files) => {
-    if (err) return res.status(500).json({ error: 'Form parsing failed' });
-
-    const { datetime, content, hashtags } = fields;
-    const file = files.file;
-
-    if (!file || Array.isArray(file)) return res.status(400).json({ error: 'Invalid file' });
-
-    const fileStream = fs.createReadStream(file.filepath);
-
-    console.log('Fields:', fields);
-    console.log('File:', file);
-
-    // 🔁 Upload to Twitter API here...
-
-    return NextResponse.json({ message: 'Post scheduled successfully' });
-  });
-}

@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/helper/query";
 import {
   ClerkProvider
 } from '@clerk/nextjs'
@@ -26,8 +28,10 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ClerkProvider>
+          {/* <QueryClientProvider client={queryClient}> */}
 
           {children}
+          {/* </QueryClientProvider> */}
         </ClerkProvider>
       </body>
     </html>
