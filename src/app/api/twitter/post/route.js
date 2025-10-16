@@ -24,25 +24,25 @@ export async function POST(req) {
   const reqbody = await req.json()
   const { formData, localPath } = reqbody
   console.log(localPath, formData)
-  if (localPath) {
-    const media = await UploadImageOnTwiter(localPath, accessToken)
-    const tweetRes = await axios.post(
-      "https://api.twitter.com/2/tweets",
-      {
-        text: formData.content,
-        media: { media_ids: [media] },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    DeleteFileFromDisk(localPath)
-    return NextResponse.json({ message: 'upload Succefull', tweet: tweetRes.data })
+  // if (localPath) {
+  //   const media = await UploadImageOnTwiter(localPath, accessToken)
+  //   const tweetRes = await axios.post(
+  //     "https://api.twitter.com/2/tweets",
+  //     {
+  //       text: formData.content,
+  //       media: { media_ids: [media] },
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   DeleteFileFromDisk(localPath)
+  //   return NextResponse.json({ message: 'upload Succefull', tweet: tweetRes.data })
 
-  }
+  // }
   const tweetRes = await axios.post(
     "https://api.twitter.com/2/tweets",
     {
@@ -55,7 +55,7 @@ export async function POST(req) {
       },
     }
   );
-  DeleteFileFromDisk(localPath)
+  // DeleteFileFromDisk(localPath)
 
-  return NextResponse.json({ message: 'Post scheduled successfully' });
+  return NextResponse.json({ message: 'Post scheduled successfully' , data : tweetRes.data });
 };

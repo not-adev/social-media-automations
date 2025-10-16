@@ -14,8 +14,7 @@ export async function POST(req) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }
   const uniqueName = `${randomUUID()}-${file.name}`
-  const publicUrl = `/upload/${uniqueName}`;
+  const publicUrl = path.join(uploadDir, uniqueName)
   fs.writeFileSync(path.join(uploadDir, uniqueName), buffer);
-
   return Response.json({ message: "File uploaded", localPath:publicUrl });
 }

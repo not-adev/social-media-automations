@@ -52,17 +52,17 @@ const TwitterGeneratePost = ({ }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // if (handleerror()) return;
-    // let savedFile = null
-    // if (File) {
-    //   savedFile = await handleFileSave(File)
+    if (handleerror()) return;
+    let savedFile = null
+    if (File) {
+      savedFile = await handleFileSave(File)
 
-    // }
+    }
 
 
-    // const response = await axios.post('/api/twitter/post', { formData: form, localPath: savedFile })
-    // console.log(response.data);
-    const res = await axios.get('/api/twitter/refreshtoken')
+    const response = await axios.post('/api/twitter/post', { formData: form, localPath: savedFile })
+    console.log(response.data);
+    // const res = await axios.get('/api/twitter/refreshtoken')
     
   }
 
