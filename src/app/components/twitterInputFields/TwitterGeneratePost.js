@@ -110,7 +110,7 @@ const TwitterGeneratePost = ({ }) => {
         </div>
 
         {/* Code Field with Copy Button */}
-        <div className="flex flex-col sm:col-span-2 max-w-[300px]">
+        {/* <div className="flex flex-col sm:col-span-2 max-w-[300px]">
           <label className="block text-gray-200 font-semibold mb-1 text-sm sm:text-base">Generated Code</label>
           <div className="flex items-center gap-2">
             <input
@@ -123,7 +123,7 @@ const TwitterGeneratePost = ({ }) => {
             />
             <button type="button" className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded transition-all duration-300" onClick={handleCopy}>Copy</button>
           </div>
-        </div>
+        </div> */}
 
         {/* Preview Button */}
         <div className="sm:col-span-2 flex flex-col sm:flex-row justify-end items-center gap-2 mt-4">
