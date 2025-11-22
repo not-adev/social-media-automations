@@ -8,7 +8,7 @@ const page = () => {
     useEffect(() => {
       async function fetchData() {
        
-          const response = await axios('/api/twitter/getinfo');
+          const response = await axios('/api/GetAllScheduledPost');
           console.log(response.data);
           
       }

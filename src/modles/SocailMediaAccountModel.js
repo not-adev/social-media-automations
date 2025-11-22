@@ -8,9 +8,9 @@ const socialMediaAccountSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+
   },
-  name : {
+  name: {
     type: String,
   },
   profilePicture: {
@@ -22,6 +22,15 @@ const socialMediaAccountSchema = new mongoose.Schema({
     required: true,
     index: true,
   },
+  access_token: {
+    type: String
+  },
+  refresh_token: String,
+  expires_in: String,
+  scope: String,
+  token_created_at: {
+    type: Date
+  }
 });
 
 export default mongoose.models.SocialMediaAccount || mongoose.model('SocialMediaAccount', socialMediaAccountSchema);

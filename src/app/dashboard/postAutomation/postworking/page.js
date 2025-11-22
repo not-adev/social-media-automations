@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import TwitterGeneratePost from '@/app/components/twitterInputFields/TwitterGeneratePost';
+import AlltwitterAccounts from '@/app/components/twitterInputFields/AlltwitterAccounts'
+
 const page = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
@@ -53,7 +54,7 @@ const page = () => {
    
 
       {
-        choosenplatfrom === 'twitter' && type === 'generatepost' && <TwitterGeneratePost />
+        choosenplatfrom === 'twitter' && type === 'generatepost' && <AlltwitterAccounts />
       }
     
     </div>

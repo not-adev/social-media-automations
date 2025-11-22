@@ -1,17 +1,15 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/helper/ConnectDB';
-import Usermodel from '@/modles/Usermodel';
+// import Usermodel from '@/modles/Usermodel';
+import SocailMediaAccountModel from '@/modles/SocailMediaAccountModel';
 import axios from "axios";
-import { getId } from '@/helper/getId';
-export async function GET(request) {
+// import { getId } from '@/helper/getId';
+export async function GET(req,res) {
     await connectDB();
-    const token = request.cookies.get('token')?.value || '';
-    if (!token) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-    const id = await getId(token);
-    const user = await Usermodel.findById(id);
-    const oldrefresh_token = user?.refresh_token;
+    const url = new URL(req.url)
+    const socialAccountId = url.searchParams.get('socialAccountId')   
+    const socailAccount = await SocailMediaAccountModel.findById(socialAccountId)
+    const oldrefresh_token = socailAccount?.refresh_token
 
     const credentials = Buffer.from(`${process.env.TWITTER_CLIENT_ID}:${process.env.TWITTER_CLIENT_SECRET}`).toString("base64");
     const Refreshresponse = await axios.post(
@@ -32,7 +30,7 @@ export async function GET(request) {
     )
 
     const { access_token, refresh_token, expires_in, scope } = Refreshresponse.data;
-    const updatedUser = await Usermodel.findByIdAndUpdate(id, {
+    const updatedSocailAccount = await SocailMediaAccountModel.findByIdAndUpdate({_id: socialAccountId}, {
         $set: {
             access_token,
             refresh_token,
@@ -41,6 +39,6 @@ export async function GET(request) {
             token_created_at: Date.now(),
         },
     }, { new: true });
-    return NextResponse.json({ message: 'Token refreshed successfully', user: updatedUser }, { status: 200 });
+    return NextResponse.json({ message: 'Token refreshed successfully', socailAccount: updatedSocailAccount }, { status: 200 });
 
 }

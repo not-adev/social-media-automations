@@ -17,7 +17,7 @@ const Dashbored_Home = () => {
     async function addToken() {
       try {
         setIsLoading(true)
-        console.log("calling api ")
+       
         const res = await axios.get('/api/SyncUser')
         console.log(res.data)
         console.log()
@@ -27,11 +27,13 @@ const Dashbored_Home = () => {
           setSocialAccountdata(accountArray)
         }
         else {
-          console.log("hjsdflsjlkj")
+         
           const res2 = await axios.get('/api/GetSocialAccounts')
-          console.log(res2.data.data)
-          localStorage.setItem('socialAccounts', JSON.stringify(res2.data.data))
-          setSocialAccountdata(res2.data.data)
+          console.log(res2.data.data , 'all social accounts')
+          if(res2.data.data.length > 0 ){
+            localStorage.setItem('socialAccounts', JSON.stringify(res2.data.data))
+            setSocialAccountdata(res2.data.data)
+          }
         }
       } catch (error) {
 

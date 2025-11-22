@@ -1,24 +1,42 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const scheduledPostSchema = new mongoose.Schema({
+  platform: {
+    type: String,
+    required: true,
+    enum: ['twitter', 'facebook', 'instagram', 'linkedin'],
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   content: {
     type: String,
     required: true,
+    trim: true,
   },
-  scheduledTime: {
-    type: Date,
-    required: true,
-  },
-  platform: {
+  socailAccount_id : {
+    type : mongoose.Schema.Types.ObjectId ,
+    required : true ,
+    ref : 'SocialMediaAccount'
+  } , 
+  state: {
     type: String,
-    enum: ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Other'],
-    required: true,
+    enum: ['pending', 'posted','retrying'],
+    default: 'pending',
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
+  scheduled_time: {
+    type: Date,
   },
-});
+  Post_id : {
+    type : Number,
+    required : false ,
 
-export default mongoose.models.ScheduledPost || mongoose.model('ScheduledPost', scheduledPostSchema);
+  }
+});
+scheduledPostSchema.index({ scheduled_time: 1 });
+const ScheduledPost = mongoose.models.ScheduledPost 
+  || mongoose.model("ScheduledPost", scheduledPostSchema);
+
+export default ScheduledPost;

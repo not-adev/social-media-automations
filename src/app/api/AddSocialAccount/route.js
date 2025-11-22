@@ -5,11 +5,14 @@ import SocailMediaAccountModel from "@/modles/SocailMediaAccountModel";
 import Usermodel from "@/modles/Usermodel";
 export async function POST(request) {
     await connectDB()
-    console.log("hi from add social account api")
+
     const requestBody = await request.json();
-    
-    console.log(requestBody)
-    const { name, platform, username, profilePicture } = requestBody;
+
+    const { name, platform, username, profilePicture, access_token,
+        refresh_token,
+        expires_in,
+        scope,
+        token_created_at, user } = requestBody;
     const searchParams = request.nextUrl.searchParams;
     const token = searchParams.get('token') || '';
 
@@ -19,9 +22,13 @@ export async function POST(request) {
     }
     const id = await getId(token);
 
-
-    const found = await SocailMediaAccountModel.findOne({ username: username })
+    const found = await SocailMediaAccountModel.findOne({ user: user })
     if (found) {
+        found.access_token = access_token
+        found.refresh_token = refresh_token
+        found.token_created_at = token_created_at
+        await found.save()
+
         return NextResponse.json({ message: 'Account already exists' }, { status: 200 });
     }
     const newAccount = new SocailMediaAccountModel({
@@ -29,12 +36,18 @@ export async function POST(request) {
         username,
         profilePicture,
         user: id,
-        name: name
+        name: name,
+        access_token,
+        refresh_token,
+        expires_in,
+        scope,
+        token_created_at
+
     });
 
     await newAccount.save();
-    const userAcount = await Usermodel.findOneAndUpdate({_id : id} , {$push : {accounts : newAccount._id }});
+    const userAcount = await Usermodel.findOneAndUpdate({ _id: id }, { $push: { accounts: newAccount._id } });
     console.log(userAcount)
-    return NextResponse.json({ message: 'Account added successfully' }, { status: 201 });
+    return NextResponse.json({ message: 'Account added successfully', _id: newAccount._id }, { status: 201 });
 
 }

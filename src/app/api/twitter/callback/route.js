@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Usermodel from '@/modles/Usermodel';
 import { NextResponse } from 'next/server';
 import { getId } from '@/helper/getId';
 import qs from 'qs'
@@ -40,27 +39,28 @@ export async function GET(request) {
     );
 
     const { access_token, refresh_token, expires_in, scope } = response.data;
-
+    console.log(access_token , 'aljfskjfks token ,')
+    const SocialAccoutData = await axios.get(`${process.env.HOST}/api/twitter/getinfo?token=${token}&access_token=${access_token}`)
+    
     // 🗂 Save to user in DB
-    await Usermodel.findByIdAndUpdate(id, {
-      $set: {
-        access_token,
-        refresh_token,
-        expires_in,
-        scope,
-        token_created_at: Date.now(),
-      },
-    });
-
-    const SocialAccoutData = await axios.get(`${process.env.HOST}/api/twitter/getinfo?token=${token}`)
-
     const res = await axios.post(`${process.env.HOST}/api/AddSocialAccount?token=${token}`, {
       platform: 'twitter',
       username: SocialAccoutData.data.data.username,
       profilePicture: SocialAccoutData.data.data.profile_image_url,
-      name: SocialAccoutData.data.data.name
-
+      name: SocialAccoutData.data.data.name,
+      user : id ,
+      access_token,
+      refresh_token,
+      expires_in,
+      scope,
+      token_created_at: Date.now(),
+      
     });
+
+   
+
+  
+
     const Nextresponse = NextResponse.redirect(`${process.env.NEXT_PUBLIC_HOST}/dashboard/home`);
     Nextresponse.cookies.delete('code_verifier');
 
