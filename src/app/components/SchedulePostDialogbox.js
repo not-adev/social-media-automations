@@ -18,6 +18,8 @@ const SchedulePostDialogbox = ({ isOpen, onClose, onConfirm }) => {
         }
         console.log(value)
         onConfirm(value);
+        setDateTime('')
+        setUseNow(false)
         onClose();  
     };
 

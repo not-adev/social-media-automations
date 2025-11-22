@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TwitterPostUI = ({}) => {
+const TwitterPostUI = ({post , socialAccount}) => {
   return (
    <div className='flex p-2 rounded-2xl px-4 gap-2 bg-white w-[100%] text-black items-start '>
           <div>
@@ -11,7 +11,7 @@ const TwitterPostUI = ({}) => {
 
               <div className='flex items-center justify-between flex-1 gap-6 w-full '>
                 <div>
-                  {userInstaData.name}@{userInstaData.username}
+                  {socialAccount.name}@{socialAccount.username}
                 </div>
                 <div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
@@ -23,18 +23,11 @@ const TwitterPostUI = ({}) => {
             <div className=''>
               <div className="sm:col-span-2 text-black max-w-[800px]">
 
-                <textarea
-                  name="content"
-                  required
-                  value={form.content}
-                  onChange={handleChange}
-                  className="w-full py-2 rounded-lg focus:outline-none  resize-none"
-                  rows={3}
-                  placeholder="Write your post content here..."
-                />
-                <p className={`text-sm ${maxCount > 280 ? 'text-red-500' : 'text-black'}`}>{maxCount}/280</p>
+                <div className="w-full py-2 rounded-lg focus:outline-none  resize-none">
+                  {post.content}
+                </div>
               </div>
-              <div className='max-w-[300px]'>
+              {/* <div className='max-w-[300px]'>
                 <label className="block  font-semibold mb-1 text-sm sm:text-base">Image or Video</label>
                 <input
                   type="file"
@@ -43,7 +36,7 @@ const TwitterPostUI = ({}) => {
                   onChange={(e) => setFile(e.target.files[0])}
                   className="w-full px-4 py-2 border-2 rounded-lg "
                 />
-              </div>
+              </div> */}
             </div>
             <div className='flex my-2.5 justify-between '>
               <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-message-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 20l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c3.255 2.777 3.695 7.266 1.029 10.501c-2.666 3.235 -7.615 4.215 -11.574 2.293l-4.7 1" /></svg></div>

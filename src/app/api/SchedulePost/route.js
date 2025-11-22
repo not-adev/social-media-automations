@@ -26,7 +26,8 @@ export async function POST(req, res) {
         const savedPost = await newPost.save();
         const Post_request_data = {
             userId: newPost.user_id,
-            ScheduledPostId: newPost._id
+            ScheduledPostId: newPost._id, 
+            socailAccount_id : socialAccountID
         }
         
         console.log(" post data" , Post_request_data)

@@ -22,6 +22,12 @@ const socialMediaAccountSchema = new mongoose.Schema({
     required: true,
     index: true,
   },
+  posts : [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ScheduledPost',
+      },
+    ], 
   access_token: {
     type: String
   },

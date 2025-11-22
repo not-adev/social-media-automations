@@ -7,17 +7,21 @@ export async function polling() {
         const now = new Date()
         const existing_post_in_queue = queue_of_upcoming_psot
         const request_to_get_post = await axios.get(`${process.env.API_CALL_URL}/api/FindUpcomingPost`)
-        const { upcomingPost } = request_to_get_post.data
+        const upcomingPost = request_to_get_post.data.upcomingPost
+
         
-    
-        if (!upcomingPost) {
-            return
-        }
+        console.log(upcomingPost)
+       
         const newPosts = upcomingPost.filter(
             post => !existing_post_in_queue.some(p => String(p._id) === String(post._id))
     
         );
         const ids = newPosts.map((p)=>p._id )
+        if(newPosts.length < 1 && queue_of_upcoming_psot.length < 1  ){
+            await re_request_to_post()
+            await requesting_to_post()
+        }
+        
         const update = await axios.put(`${process.env.API_CALL_URL}/api/ChangeScheduledPostState` ,{ids} )
         queue_of_upcoming_psot.push(...newPosts)
 

@@ -1,13 +1,14 @@
 import connectDB from "@/helper/ConnectDB";
 import Usermodel from "@/modles/Usermodel";
 import { NextResponse } from "next/server";
+import SocailMediaAccountModel from "@/modles/SocailMediaAccountModel";
 import { getId } from "@/helper/getId";
 export async function PUT(req, res) {
 
   try {
     await connectDB();
     const reqbody =await req.json()
-    let { userId,ScheduledPostId } = reqbody;
+    let { userId,ScheduledPostId,socailAccount_id } = reqbody;
     // let { ScheduledPostId } = reqbody;
 
    
@@ -29,8 +30,19 @@ export async function PUT(req, res) {
       { new: true }
     );
 
+  
+
     if (!updatedUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 401 });
+    }
+
+    const updatedSocailAccount = await SocailMediaAccountModel.findByIdAndUpdate(socailAccount_id , 
+      { $push :  {posts : ScheduledPostId } } , 
+      { new : true }
+    )
+
+    if(!updatedSocailAccount){
+      return NextResponse.json({message : "no social account associated with this post"} , {status : 400 })
     }
 
     return NextResponse.json({
