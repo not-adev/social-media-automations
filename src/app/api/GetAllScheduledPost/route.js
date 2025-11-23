@@ -3,7 +3,7 @@ import Usermodel from '@/modles/Usermodel';
 import connectDB from '@/helper/ConnectDB';
 import { getId } from '@/helper/getId';
 import ScheduledPost from '@/modles/ScheduledPostModel';
-
+import SocailMediaAccountModel from '@/modles/SocailMediaAccountModel';
 
 export async function GET(req) {
     await connectDB();

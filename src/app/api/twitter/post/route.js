@@ -57,5 +57,5 @@ export async function POST(request) {
   // DeleteFileFromDisk(localPath)
   console.log(tweetRes.data)
 
-  return NextResponse.json({ message: 'Post scheduled successfully' , data : tweetRes.data });
+  return NextResponse.json({ message: 'Post scheduled successfully' , data : tweetRes.data.data });
 };

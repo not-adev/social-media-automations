@@ -25,10 +25,10 @@ export default async function requesting_to_post() {
                     { formData: element }
                 );
     
-                if (res.status !== 200) {
-                    queue_of_feild_postes.push(element);
-                }
-    
+                const AddingPostid = await axios.put(`${process.env.API_CALL_URL}/api/AddPostidInScheduledPost `,{
+                    ScheduledPostId : element._id,
+                    postID : res.data.id
+                })
                 
             } catch (err) {
                 queue_of_feild_postes.push(element);

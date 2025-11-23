@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import TwitterGeneratePost from './TwitterGeneratePost'
+import TwitterSmartAi from './TwitterSmartAi'
 
-const AlltwitterAccounts = () => {
+const AlltwitterAccounts = ({type}) => {
   const SocialAccounts = JSON.parse(localStorage.getItem('socialAccounts')) || []
   const twitterAccount = SocialAccounts.filter(item => item.platform === 'twitter') || []
   const [selectedAccount, setSelectedAccount] = useState(null)
@@ -12,7 +13,7 @@ const AlltwitterAccounts = () => {
         <h2 className="text-2xl font-semibold">Choose an account</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 scrollbar-hidden">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-6 p-6 scrollbar-hidden">
         {twitterAccount.map((account, index) => (
           <div
             key={index}
@@ -32,9 +33,14 @@ const AlltwitterAccounts = () => {
         ))}
       </div>
 
-      {selectedAccount && (
+      {selectedAccount && type == "generatepost" && (
         <div className="mt-6">
           <TwitterGeneratePost account={selectedAccount} />
+        </div>
+      )}
+       {selectedAccount && type == "smartai" && (
+        <div className="mt-6">
+          <TwitterSmartAi  account={selectedAccount} />
         </div>
       )}
     </>

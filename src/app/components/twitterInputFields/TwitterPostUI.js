@@ -4,7 +4,7 @@ const TwitterPostUI = ({post , socialAccount}) => {
   return (
    <div className='flex p-2 rounded-2xl px-4 gap-2 bg-white w-[100%] text-black items-start '>
           <div>
-            <img src={userInstaData.profilePicture} className='rounded-full' alt="profile imgae " />
+            <img src={socialAccount.profilePicture} className='rounded-full' alt="profile imgae " />
           </div>
           <div className='flex-1 '>
             <div>

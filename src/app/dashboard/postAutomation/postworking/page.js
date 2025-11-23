@@ -15,12 +15,12 @@ const page = () => {
 
 
   const [choosenplatfrom, setChoosenplatfrom] = useState('')
-  useEffect(() => {
+  // useEffect(() => {
 
 
-    console.log(choosenplatfrom);
+  //   console.log(choosenplatfrom);
 
-  }, [choosenplatfrom])
+  // }, [choosenplatfrom])
 
   return (
     <div className="w-full rounded-xl  p-4 max-h-screen boxsize overflow-auto scrollbar-hidden">
@@ -54,8 +54,9 @@ const page = () => {
    
 
       {
-        choosenplatfrom === 'twitter' && type === 'generatepost' && <AlltwitterAccounts />
+        choosenplatfrom === 'twitter' && <AlltwitterAccounts  type={type}/>
       }
+      
     
     </div>
 

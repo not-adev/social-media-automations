@@ -11,7 +11,7 @@ import { CgProfile } from 'react-icons/cg';
 
 export default function dashboardLayout({ children }) {
     return (
-        <div className="flex justify-center h-screen text-white bg-[#262627] p-1">
+        <div className="flex justify-center min-h-screen text-white bg-[#262627] p-1">
             <aside className="w-[220px] md:block hidden border-1 border-gray-600 rounded-lg  bg-[#2a2b2c]">
                 <h2 className="m-auto text-center text-4xl py-7 font-bold">MyLogo </h2>
                 <nav className="text-gray-300 flex flex-col gap-6 items-start px-4">
