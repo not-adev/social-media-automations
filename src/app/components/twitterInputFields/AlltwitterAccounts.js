@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import TwitterGeneratePost from './TwitterGeneratePost'
 import TwitterSmartAi from './TwitterSmartAi'
+import TwitterTrending from './Twittertrending'
 
 const AlltwitterAccounts = ({type}) => {
   const SocialAccounts = JSON.parse(localStorage.getItem('socialAccounts')) || []
@@ -41,6 +42,11 @@ const AlltwitterAccounts = ({type}) => {
        {selectedAccount && type == "smartai" && (
         <div className="mt-6">
           <TwitterSmartAi  account={selectedAccount} />
+        </div>
+      )}
+      {selectedAccount && type == "tredingtopics" && (
+        <div className="mt-6">
+          <TwitterTrending  account={selectedAccount} />
         </div>
       )}
     </>

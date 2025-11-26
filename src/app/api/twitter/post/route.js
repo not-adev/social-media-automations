@@ -18,7 +18,7 @@ export async function POST(request) {
   console.log(Date.now() > tokenCreatedAt + expery * 1000 , "false or not ")
   if (Date.now() > tokenCreatedAt + expery * 1000) {
     const res = await axios.get(`${process.env.HOST}/api/twitter/refreshtoken?socialAccountId=${socialAccountId}`)
-    accessToken = res.data.user.access_token
+    accessToken = res.data.socailAccount.access_token
   }
   const reqbody = await request.json()
   const { formData, localPath } = reqbody

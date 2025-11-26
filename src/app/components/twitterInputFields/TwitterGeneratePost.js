@@ -148,9 +148,9 @@ const TwitterGeneratePost = ({ account }) => {
             content: '',
             code: '',
           }
-        
+
         )
-          setMaxCoutn(0)
+        setMaxCoutn(0)
       }
 
 
