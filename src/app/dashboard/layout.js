@@ -2,7 +2,7 @@ import Link from "next/link";
 import { HiHome } from 'react-icons/hi';
 import { MdOutlineBuild } from 'react-icons/md';
 import { UserButton ,SignedOut , SignedIn} from "@clerk/nextjs";
-import Link from "next/link";
+// import Link from "next/link";
 import { FaRegCalendarCheck } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi'
 import { CgProfile } from 'react-icons/cg';
