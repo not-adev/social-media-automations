@@ -39,6 +39,7 @@ export async function GET(req,res) {
             token_created_at: Date.now(),
         },
     }, { new: true });
+    console.log(updatedSocailAccount)
     return NextResponse.json({ message: 'Token refreshed successfully', socailAccount: updatedSocailAccount }, { status: 200 });
 
 }

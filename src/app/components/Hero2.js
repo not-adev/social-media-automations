@@ -1,6 +1,43 @@
+'use client'
 import React from 'react'
+import { useEffect,useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
+
 
 const Hero2 = () => {
+    const divs = useRef(null)
+    const line = useRef(null)
+
+    useGSAP(() => {
+      gsap.from(divs.current , {
+        opacity : 0 ,
+        y : - 100 ,
+        ease : 'power1',
+        duration : 1.3,
+        scrollTrigger : {
+            trigger : divs.current ,
+            start : '10% 50%',
+            end : '79% center',
+        }
+      })
+
+      gsap.to(line.current , { 
+        duration : 5 , 
+        x :'90%' , 
+        repeat : -1, 
+        
+        yoyoEase : true     
+
+        
+        
+      })
+      
+      
+    }, {scope : divs})
+    
 
     const cards = [
         {
@@ -26,21 +63,24 @@ const Hero2 = () => {
         <div className="bg-black text-white min-h-screen px-16 py-20">
 
             <div className="text-center mt-12 mb-20">
-                <h1 className="text-3xl font-bold mb-4">Welcome to Your Next Big Thing</h1>
-                <p className="text-md   text-gray-300">
+                <h1 className="text-5xl font-bold mb-4">Welcome to Your Next Big Thing</h1>
+                <p className="text-md text-gray-300">
                     Explore powerful tools and beautiful design in one unified experience.
                 </p>
+                <div className='md:w-[50%] w-[90%]  m-auto overflow-hidden h-10'>
+
+                <div ref={line} className=' w-full translate-x-[-90%] h-1 mt-2 bg-blue-500'> </div>
+                </div>
             </div>
 
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div ref={divs} className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {cards.map((card, index) => (
                     <div
                         key={index}
-                        className="relative border border-gray-500 rounded-xl shadow-lg h-65 overflow-hidden"
-                    >
+                        className="relative group border border-gray-500 rounded-xl shadow-lg h-65 overflow-hidden">
                         <div
-                            className="absolute inset-0 bg-cover bg-center opacity-40"
+                            className="absolute group-hover:scale-110 transition-all duration-300 ease-in inset-0 bg-cover bg-center opacity-40"
                             style={{ backgroundImage: `url(${card.bg})` }}
                         />
 

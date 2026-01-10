@@ -1,17 +1,46 @@
+'use client'
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+// import { TimelineLite } from 'gsap/gsap-core';
+gsap.registerPlugin(ScrollTrigger)
 const Footer = () => {
+  const left = useRef(null)
+  const right = useRef(null)
+
+  useEffect(() => {
+    const t1 = gsap.timeline({
+      scrollTrigger: {
+        start: 'center 80%'
+      }
+    })
+    t1.from(left.current, {
+      opacity: 0,
+      y: -100,
+      duration: 2,
+    })
+      .from(right.current, {
+        opacity: 0,
+        y: -100,
+        duration: 2,
+      }, '-=1.4')
+
+
+  }, [])
+
   return (
     <footer className="bg-black text-white px-8 py-12 ">
-        <div className='h-[1px] bg-gray-600 w-full mb-20' >
+      <div className='h-[1px] bg-gray-600 w-full mb-20' >
 
-        </div>
+      </div>
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-around items-start gap-12">
         {/* Left Section */}
-        <div className="flex flex-col gap-4">
+        <div ref={left} className="flex flex-col gap-4">
           {/* Logo */}
-          <div className="text-2xl font-bold">MyLogo</div>
+          <div className="text-2xl font-bold">Social Bird</div>
 
           {/* Address */}
           <p className="text-gray-400">
@@ -30,7 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Right Section */}
-        <div className="grid grid-cols-2 gap-8">
+        <div ref={right} className="grid grid-cols-2 gap-8">
           <div>
             <h4 className="font-semibold mb-2">Company</h4>
             <ul className="space-y-1 text-gray-400">
