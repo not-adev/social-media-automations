@@ -4,7 +4,7 @@ import React from 'react'
 import { useEffect } from 'react'
 
 
-const page = () => {
+const Page = () => {
     useEffect(() => {
       async function fetchData() {
        
@@ -21,4 +21,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

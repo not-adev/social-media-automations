@@ -4,7 +4,7 @@ import TwitterPostUI from '@/app/components/twitterInputFields/TwitterPostUI'
 import SkeletonCard from '@/app/components/SkeltonCard'
 import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
-const page = () => {
+const Page = () => {
   const [allPosts, setAllPosts] = useState([])
   const [loading, setLoading] = useState(false)
   const erroToast = (msg) => toast.error(msg)
@@ -130,4 +130,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

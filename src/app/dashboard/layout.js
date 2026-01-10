@@ -4,12 +4,12 @@ import { MdOutlineBuild } from 'react-icons/md';
 import { UserButton ,SignedOut , SignedIn} from "@clerk/nextjs";
 import Link from "next/link";
 import { FaRegCalendarCheck } from 'react-icons/fa';
-import { FiSettings } from 'react-icons/fi';
+import { FiSettings } from 'react-icons/fi'
 import { CgProfile } from 'react-icons/cg';
 
 
 
-export default function dashboardLayout({ children }) {
+export default function DashboardLayout({ children }) {
     return (
         <div className="flex justify-center min-h-screen text-white bg-[#262627] p-0">
             <aside className="w-[220px] md:block hidden border-1 border-gray-600 rounded-lg  bg-[#2a2b2c]">

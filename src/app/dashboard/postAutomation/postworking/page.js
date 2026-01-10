@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import AlltwitterAccounts from '@/app/components/twitterInputFields/AlltwitterAccounts'
 
-const page = () => {
+const Page = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
   const items = [
@@ -12,15 +12,8 @@ const page = () => {
     { text: "Facebook", image: "https://i.pinimg.com/736x/e7/c1/54/e7c15488d7a9ef341d79bbe19c5bac30.jpg" },
     { text: "Linded In", image: "http://i.pinimg.com/1200x/b0/28/c2/b028c2e59043116dfc0da6ec6fd26d70.jpg" },
   ];
-
-
   const [choosenplatfrom, setChoosenplatfrom] = useState('')
-  // useEffect(() => {
-
-
-  //   console.log(choosenplatfrom);
-
-  // }, [choosenplatfrom])
+ 
 
   return (
     <div className="w-full rounded-xl  p-4 max-h-screen boxsize overflow-auto scrollbar-hidden">
@@ -64,4 +57,4 @@ const page = () => {
 
 }
 
-export default page
+export default Page
