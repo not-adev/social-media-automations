@@ -25,7 +25,7 @@ export async function GET(request) {
       qs.stringify({
         grant_type: 'authorization_code',
         code,
-        redirect_uri: 'http://localhost:3000/api/twitter/callback',
+        redirect_uri: `${process.env.HOST}/api/twitter/callback`,
         code_verifier: code_verifier,
       }),
       {
