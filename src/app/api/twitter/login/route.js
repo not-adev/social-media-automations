@@ -12,7 +12,7 @@ export async function GET(request) {
         new URLSearchParams({
             response_type: 'code',
             client_id: process.env.TWITTER_CLIENT_ID,
-            redirect_uri: 'http://localhost:3000/api/twitter/callback',
+            redirect_uri: `${process.env.HOST}/api/twitter/callback`,
             scope: 'tweet.read tweet.write users.read offline.access',
             state: 'secure_random_state',
             code_challenge,
